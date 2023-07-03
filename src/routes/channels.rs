@@ -10,9 +10,10 @@ use serde_json::json;
 use crate::router::AppState;
 
 #[derive(Serialize)]
-struct Channel {
-    id: i32,
-    link: String,
+pub struct Channel {
+    pub id: i32,
+    pub link: String,
+    pub unread: Option<i64>,
 }
 
 #[derive(Deserialize)]
@@ -23,7 +24,7 @@ pub struct AddChannel {
 pub async fn get_channels(
     State(data): State<Arc<AppState>>,
 ) -> Result<impl IntoResponse, (StatusCode, Json<serde_json::Value>)> {
-    let query_result = sqlx::query_as!(Channel, "SELECT id, link FROM channels")
+    let query_result = sqlx::query_as!(Channel, "SELECT id, link, unread FROM channels")
         .fetch_all(&data.db)
         .await;
 

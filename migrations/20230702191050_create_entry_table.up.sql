@@ -5,6 +5,6 @@ CREATE TABLE entries(
     link TEXT NOT NULL,
     published TIMESTAMPTZ NOT NULL,
     updated TIMESTAMPTZ NOT NULL,
-    read BOOLEAN NOT NULL DEFAULT 'false',
+    read BOOLEAN NOT NULL DEFAULT 'true',
     CONSTRAINT fk_channel FOREIGN KEY(channel_id) REFERENCES channels(id)
 )
